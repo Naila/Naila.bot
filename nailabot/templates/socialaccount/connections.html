@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "• Connections" %}{% endblock %}
+
+{% block content %}
+  <v-container>
+    <v-card class="mt-6 mx-auto" max-width="600">
+      <v-card-title class="headline">{% trans "Account Connections" %}</v-card-title>
+      {% if form.accounts %}
+        <form method="post" action="{% url 'socialaccount_connections' %}">
+          <v-card-text>
+            <p class="body-1">
+              {% blocktrans %}
+                You can sign in to your account using any of the following third party accounts:
+              {% endblocktrans %}
+            </p>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <v-alert type="error">{{ form.non_field_errors }}</v-alert>
+            {% endif %}
+            <v-radio-group>
+              {% for base_account in form.accounts %}
+                {% with base_account.get_provider_account as account %}
+                  <v-radio
+                      name="account"
+                      value="{{ base_account.id }}"
+                      label="{{ account.get_brand.name }} ({{ account }})"
+                  ></v-radio>
+                {% endwith %}
+              {% endfor %}
+            </v-radio-group>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn type="submit" color="error">{% trans "Remove" %}</v-btn>
+          </v-card-actions>
+        </form>
+      {% else %}
+        <v-card-text>
+          <p>{% trans "You currently have no social network accounts connected to this account." %}</p>
+        </v-card-text>
+      {% endif %}
+    </v-card>
+    <v-card class="mt-6 mx-auto" max-width="600">
+      <v-card-title class="headline">{% trans 'Add a 3rd Party Account' %}</v-card-title>
+      <v-card-text>
+        <v-list>
+          <v-list-item-group>
+            <v-list-item href="/accounts/discord/login/?process=connect">
+              <v-list-item-icon>
+                <i class="fab fa-discord fa-lg"></i>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Discord
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item href="/accounts/patreon/login/?process=connect">
+              <v-list-item-icon>
+                <i class="fab fa-patreon fa-lg"></i>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Patreon
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card-text>
+    </v-card>
+  </v-container>
+{% endblock %}

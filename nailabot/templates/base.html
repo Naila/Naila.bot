@@ -1,0 +1,112 @@
+{% load static %}
+{% load socialaccount %}
+{% load sass_tags %}
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.2.20/dist/vuetify.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vue-snotify@3.2.1/styles/material.css" rel="stylesheet">
+  <link href="{% sass_src 'scss/base.scss' %}">
+  <script src="https://kit.fontawesome.com/de3ef6798f.js" crossorigin="anonymous"></script>
+  {% block head %}{% endblock %}
+  <title>🦊 Naila {% block title %}{% endblock %} 🐾</title>
+</head>
+
+<body>
+<div id="app" v-cloak>
+  <v-app>
+    <v-app-bar app>
+      <v-app-bar-nav-icon
+          @click.stop="sidebar = !sidebar"
+          class="d-md-none"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-items class="d-none d-md-flex">
+        <v-btn
+            text
+            :href="link.url"
+            v-for="link in navItems"
+            :key="link.name"
+        >
+          [[ link.name ]]
+        </v-btn>
+      </v-toolbar-items>
+
+
+      <v-spacer></v-spacer>
+      {% if user.is_authenticated %}
+        <v-toolbar-items>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn text v-on="on" class="discord-name">
+                <v-avatar class="mr-3">
+                  <v-img src="{{ avatar_url }}"></v-img>
+                </v-avatar>
+                {{ discord_username }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-subheader>Welcome, {{ discord_username }}</v-subheader>
+              {% if user.is_staff %}
+                <v-list-item href="/admin" color="info">
+                  <v-list-item-title><span class="info--text">Admin Panel</span></v-list-item-title>
+                </v-list-item>
+              {% endif %}
+              {#            <v-list-item href="{% url "profile" %}">#}
+              {#              <v-list-item-title>Profile</v-list-item-title>#}
+              {#            </v-list-item>#}
+              <v-list-item href="/accounts/social/connections/">
+                <v-list-item-title>Connected Accounts</v-list-item-title>
+              </v-list-item>
+              <v-list-item href="{% url "account_logout" %}" color="error">
+                <v-list-item-title><span class="error--text">Log Out</span></v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-toolbar-items>
+      {% else %}
+        <v-toolbar-items>
+          <v-btn
+              color="#7289DA"
+              href="{% provider_login_url 'discord' %}"
+          >
+            <i class="fab fa-discord fa-2x mr-3"></i> Login with Discord
+          </v-btn>
+        </v-toolbar-items>
+      {% endif %}
+    </v-app-bar>
+    <v-content>
+      {% block content %}{% endblock %}
+      <vue-snotify></vue-snotify>
+    </v-content>
+  </v-app>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2/dist/vuetify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-snotify@3/vue-snotify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1/dist/vue-resource.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+<script>
+  var app = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#app',
+    vuetify: new Vuetify({
+      theme: {
+        dark: true,
+      },
+    }),
+    data: {
+      sidebar: false,
+      navItems: [
+        {name: 'Home', url: '{% url "home" %}'},
+      ],
+      {% block data %}{% endblock %}
+    },
+    methods: {% block methods %}{}{% endblock %},
+    watch: {% block watch %}{}{% endblock %}
+  });
+</script>
+</body>
+</html>

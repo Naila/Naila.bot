@@ -1,0 +1,37 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "• Log Out" %}{% endblock %}
+
+{% block content %}
+  <v-container>
+    <v-card class="mx-auto" max-width="300">
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <v-card-title class="headline">{% trans "Log Out" %}</v-card-title>
+        <v-card-text class="text-center">
+          <p class="body-1">{% trans "Are you sure you want to log out?" %}</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              text
+              href="/"
+          >
+            Cancel
+          </v-btn>
+          <button
+              type="submit"
+              class="v-btn v-btn--flat v-btn--text theme--dark v-size--default primary--text"
+          >
+            {% trans "Log Out" %}
+          </button>
+        </v-card-actions>
+      </form>
+    </v-card>
+  </v-container>
+{% endblock %}
