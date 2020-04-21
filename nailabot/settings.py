@@ -19,11 +19,11 @@ load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR)
-SITE_ROOT = os.path.dirname(os.path.abspath(BASE_DIR))
-print(SITE_ROOT)
-STATIC_ROOT = os.path.join(SITE_ROOT, "static")
-print(STATIC_ROOT)
+# print(BASE_DIR)
+# SITE_ROOT = os.path.dirname(os.path.abspath(BASE_DIR))
+# print(SITE_ROOT)
+# STATIC_ROOT = os.path.join(SITE_ROOT, "static")
+# print(STATIC_ROOT)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.patreon",
-    "sass_processor",
 ]
 
 MIDDLEWARE = [
@@ -144,10 +143,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "sass_processor.finders.CssFinder",
-]
-
-SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r"^.+\.scss$"
+# STATICFILES_FINDERS = [
+#     "django.contrib.staticfiles.finders.FileSystemFinder",
+#     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+# ]

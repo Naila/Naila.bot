@@ -4,14 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-django-compressor = "*"
 
 [packages]
 django = "*"
 psycopg2 = "*"
 python-dotenv = "*"
 django-allauth = "*"
-django-sass-processor = "*"
 
 [requires]
 python_version = "3.8"
