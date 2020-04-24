@@ -1,0 +1,24 @@
+body {
+    background: #121212;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #affaff;
+}
+
+#content-related, .module {
+    background: #1e1e1e;
+}
+
+td, th {
+    border-bottom: 1px solid #191919;
+}
+
+div.breadcrumbs {
+    background: #191919;
+}
+
+#header {
+    background: #272727;
+    color: white;
+}

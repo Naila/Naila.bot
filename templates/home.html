@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+  <v-container>
+    <v-col cols="12" sm="10" md="8" offset-sm="1" offset-md="2">
+      <v-card>
+        <v-img
+            max-width="350"
+            max-height="200"
+            src="{% static "images/naila/NailaCrop.png" %}"
+            alt="Naila"
+            class="mx-auto"
+        ></v-img>
+        <h1 class="display-3 mb-5 text-center">Naila</h1>
+      </v-card>
+    </v-col>
+  </v-container>
+{% endblock %}

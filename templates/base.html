@@ -6,6 +6,9 @@
 <head>
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.2.20/dist/vuetify.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vue-snotify@3.2.1/styles/material.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4/css/materialdesignicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <script src="https://kit.fontawesome.com/de3ef6798f.js" crossorigin="anonymous"></script>
   {% block head %}{% endblock %}
   <title>🦊 Naila {% block title %}{% endblock %} 🐾</title>
@@ -14,11 +17,21 @@
 <body>
 <div id="app" v-cloak>
   <v-app>
-    <v-app-bar app>
+    <!-- Header -->
+    <v-app-bar app id="header">
       <v-app-bar-nav-icon
           @click.stop="sidebar = !sidebar"
           class="d-md-none"
       ></v-app-bar-nav-icon>
+      <v-toolbar-title>
+          <v-img
+              style="cursor: context-menu"
+              src="{% static "images/naila/nailatext 1.png" %}"
+              max-width="140"
+              max-height="50"
+          >
+          </v-img>
+      </v-toolbar-title>
       <v-toolbar-items class="d-none d-md-flex">
         <v-btn
             text
@@ -73,10 +86,35 @@
         </v-toolbar-items>
       {% endif %}
     </v-app-bar>
+    <!-- End Header -->
+
+    <!-- Nav Drawer -->
+    <v-navigation-drawer
+        class="d-md-none"
+        v-model="sidebar"
+        disable-resize-watcher
+        app
+    >
+      <v-list nav>
+        <v-list-item
+            v-for="link in navItems"
+            :key="`sb${link.name}`"
+            :href="link.url"
+        >
+          <v-list-item-content>
+            <v-list-item-title>[[ link.name ]]</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <!-- End Nav Drawer -->
+
+    <!-- Content -->
     <v-content>
       {% block content %}{% endblock %}
       <vue-snotify></vue-snotify>
     </v-content>
+    <!-- End Content -->
   </v-app>
 </div>
 
@@ -88,8 +126,8 @@
 
 <script>
   var app = new Vue({
-    delimiters: ['[[', ']]'],
-    el: '#app',
+    delimiters: ["[[", "]]"],
+    el: "#app",
     vuetify: new Vuetify({
       theme: {
         dark: true,
@@ -98,7 +136,7 @@
     data: {
       sidebar: false,
       navItems: [
-        {name: 'Home', url: '{% url "home" %}'},
+        {name: "Home", url: "{% url 'home' %}"},
       ],
       {% block data %}{% endblock %}
     },
