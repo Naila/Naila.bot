@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <script src="https://kit.fontawesome.com/de3ef6798f.js" crossorigin="anonymous"></script>
   {% block head %}{% endblock %}
+  {% block extrastyle %}{% endblock %}
   <title>🦊 Naila {% block title %}{% endblock %} 🐾</title>
 </head>
 
@@ -109,12 +110,23 @@
     </v-navigation-drawer>
     <!-- End Nav Drawer -->
 
+    <!-- Breadcrumbs -->
+    {% block breadcrumbs %}{% endblock %}
+    <!-- End Breadcrumbs -->
+
     <!-- Content -->
     <v-content>
+      {% block pretitle %}{% endblock %}
+      {% block content_title %}{% endblock %}
       {% block content %}{% endblock %}
+      {% block sidebar %}{% endblock %}
       <vue-snotify></vue-snotify>
     </v-content>
     <!-- End Content -->
+
+    <!-- Footer -->
+    {% block footer %}{% endblock %}
+    <!-- End Footer -->
   </v-app>
 </div>
 

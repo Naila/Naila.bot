@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load i18n static %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+{% load i18n %}
+
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static "css/admin/admin-extra.css" %}"/>
+{% endblock %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
+
+<!-- Container -->
+<div id="container">
+
+  {% if not is_popup %}
+    {% block breadcrumbs %}
+      <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        {% if title %} &rsaquo; {{ title }}{% endif %}
+      </div>
+    {% endblock %}
+  {% endif %}
+
+  {% block messages %}
+    {% if messages %}
+      <ul class="messagelist">{% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+      {% endfor %}</ul>
+    {% endif %}
+  {% endblock messages %}
+
+  <!-- Content -->
+  <div id="content" class="{% block coltype %}colM{% endblock %}">
+    {% block pretitle %}{% endblock %}
+    {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+    <v-container>
+      <v-col cols="12" sm="10" md="8" offset-sm="1" offset-md="2">
+        <v-card>
+          {% block content %}
+            {% block object-tools %}{% endblock %}
+            {{ content }}
+          {% endblock %}
+        </v-card>
+      </v-col>
+    </v-container>
+    {% block sidebar %}{% endblock %}
+    <br class="clear">
+  </div>
+  <!-- END Content -->
+
+  {% block footer %}<div id="footer"></div>{% endblock %}
+</div>
+<!-- END Container -->
+
+</body>
+</html>
