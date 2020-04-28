@@ -15,7 +15,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="31">
+          <list size="33">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -47,6 +47,8 @@
             <item index="28" class="java.lang.String" itemvalue="v-toolbar-items" />
             <item index="29" class="java.lang.String" itemvalue="v-row" />
             <item index="30" class="java.lang.String" itemvalue="v-col" />
+            <item index="31" class="java.lang.String" itemvalue="v-icon" />
+            <item index="32" class="java.lang.String" itemvalue="v-list-item-action" />
           </list>
         </value>
       </option>

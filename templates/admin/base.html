@@ -10,10 +10,86 @@
   <link rel="stylesheet" href="{% static "css/admin/admin-extra.css" %}"/>
 {% endblock %}
 
-<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+      data-admin-utc-offset="{% now "Z" %}">
 
 <!-- Container -->
 <div id="container">
+
+  {% block nav_drawer %}
+    <v-navigation-drawer
+        permanent
+        expand-on-hover
+        width="370"
+    >
+      {% if app_list %}
+        <v-list>
+          <v-list-item link href="{% url 'admin:index' %}">
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+          {% for app in app_list %}
+            <v-list-group
+                {% if app.name == "Accounts" %}
+                  prepend-icon="mdi-account-circle"
+                {% elif app.name == "Authentication and Authorization" %}
+                  prepend-icon="mdi-account-lock"
+                {% elif app.name == "Sites" %}
+                  prepend-icon="mdi-sitemap"
+                {% elif app.name == "Social Accounts" %}
+                  prepend-icon="mdi-discord"
+                {% else %}
+                  prepend-icon="mdi-alert-circle"
+                {% endif %}
+            >
+              <template v-slot:activator>
+                <v-list-item-title>{{ app.name }}</v-list-item-title>
+              </template>
+
+              <v-list-item href="{{ app.app_url }}">
+                <v-list-item-action>
+                  <v-icon>mdi-chart-tree</v-icon>
+                </v-list-item-action>
+                <v-list-item-title>Dashboard</v-list-item-title>
+              </v-list-item>
+
+              {% for model in app.models %}
+                <v-list-item href="{{ model.admin_url }}">
+                  <v-list-item-action>
+                    {% if model.name == "Email addresses" %}
+                      <v-icon>mdi-at</v-icon>
+                    {% elif model.name == "Groups" %}
+                      <v-icon>mdi-account-group</v-icon>
+                    {% elif model.name == "Users" %}
+                      <v-icon>mdi-account</v-icon>
+                    {% elif model.name == "Sites" %}
+                      <v-icon>mdi-earth</v-icon>
+                    {% elif model.name == "Social accounts" %}
+                      <v-icon>mdi-shield-lock-outline</v-icon>
+                    {% elif model.name == "Social application tokens" %}
+                      <v-icon>mdi-database-lock</v-icon>
+                    {% elif model.name == "Social applications" %}
+                      <v-icon>mdi-file-lock</v-icon>
+                    {% endif %}
+                  </v-list-item-action>
+                  <v-list-item-title>{{ model.name }}</v-list-item-title>
+                  {% if model.add_url %}
+                    <v-list-item-action>
+                      <v-btn icon href="{{ model.add_url }}">
+                        <v-icon color="grey lighten-1">mdi-plus</v-icon>
+                      </v-btn>
+                    </v-list-item-action>
+                  {% endif %}
+                </v-list-item>
+              {% endfor %}
+            </v-list-group>
+          {% endfor %}
+        </v-list>
+      {% endif %}
+    </v-navigation-drawer>
+  {% endblock %}
 
   {% if not is_popup %}
     {% block breadcrumbs %}
@@ -36,22 +112,17 @@
   <div id="content" class="{% block coltype %}colM{% endblock %}">
     {% block pretitle %}{% endblock %}
     {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
-    <v-container>
-      <v-col cols="12" sm="10" md="8" offset-sm="1" offset-md="2">
-        <v-card>
-          {% block content %}
-            {% block object-tools %}{% endblock %}
-            {{ content }}
-          {% endblock %}
-        </v-card>
-      </v-col>
-    </v-container>
+    {% block content %}
+      {% block object-tools %}{% endblock %}
+      {{ content }}
+    {% endblock %}
     {% block sidebar %}{% endblock %}
     <br class="clear">
   </div>
   <!-- END Content -->
 
-  {% block footer %}<div id="footer"></div>{% endblock %}
+  {% block footer %}
+    <div id="footer"></div>{% endblock %}
 </div>
 <!-- END Container -->
 

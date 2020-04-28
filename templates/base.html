@@ -111,15 +111,16 @@
     <!-- End Nav Drawer -->
 
     <!-- Breadcrumbs -->
-    {% block breadcrumbs %}{% endblock %}
+{#    {% block breadcrumbs %}{% endblock %}#}
     <!-- End Breadcrumbs -->
 
     <!-- Content -->
+{#    {% block sidebar %}{% endblock %}#}
     <v-content>
       {% block pretitle %}{% endblock %}
-      {% block content_title %}{% endblock %}
+{#      {% block content_title %}{% endblock %}#}
       {% block content %}{% endblock %}
-      {% block sidebar %}{% endblock %}
+      {% block nav_drawer %}{% endblock %}
       <vue-snotify></vue-snotify>
     </v-content>
     <!-- End Content -->

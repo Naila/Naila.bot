@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.patreon",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
