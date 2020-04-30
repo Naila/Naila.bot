@@ -29,7 +29,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+DEFAULT_HOST = "main"
 
 # Application definition
 
@@ -47,7 +48,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.patreon",
-    "rest_framework"
+    "rest_framework",
+    "cdn",
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,9 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "libraries": {
+                "common_utils": "nailabot.templatetags.utils",
+            }
         },
     },
 ]

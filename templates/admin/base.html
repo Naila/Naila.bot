@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load common_utils %}
 
 {% load i18n static %}
 <!DOCTYPE html>
@@ -22,15 +23,16 @@
         expand-on-hover
         width="370"
     >
-      {% if app_list %}
-        <v-list>
-          <v-list-item link href="{% url 'admin:index' %}">
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-          {% for app in app_list %}
+      <v-list>
+        <v-list-item link href="{% url 'admin:index' %}">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
+        {% get_app_list as all_app_list %}
+        {% if all_app_list %}
+          {% for app in all_app_list %}
             <v-list-group
                 {% if app.name == "Accounts" %}
                   prepend-icon="mdi-account-circle"
@@ -86,8 +88,8 @@
               {% endfor %}
             </v-list-group>
           {% endfor %}
-        </v-list>
-      {% endif %}
+          </v-list>
+        {% endif %}
     </v-navigation-drawer>
   {% endblock %}
 
@@ -110,8 +112,6 @@
 
   <!-- Content -->
   <div id="content" class="{% block coltype %}colM{% endblock %}">
-    {% block pretitle %}{% endblock %}
-    {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
     {% block content %}
       {% block object-tools %}{% endblock %}
       {{ content }}

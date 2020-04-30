@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/vue-snotify@3.2.1/styles/material.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4/css/materialdesignicons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link href="{% static 'css/base.css' %}" rel="stylesheet" >
   <script src="https://kit.fontawesome.com/de3ef6798f.js" crossorigin="anonymous"></script>
   {% block head %}{% endblock %}
   {% block extrastyle %}{% endblock %}
@@ -110,15 +110,8 @@
     </v-navigation-drawer>
     <!-- End Nav Drawer -->
 
-    <!-- Breadcrumbs -->
-{#    {% block breadcrumbs %}{% endblock %}#}
-    <!-- End Breadcrumbs -->
-
     <!-- Content -->
-{#    {% block sidebar %}{% endblock %}#}
     <v-content>
-      {% block pretitle %}{% endblock %}
-{#      {% block content_title %}{% endblock %}#}
       {% block content %}{% endblock %}
       {% block nav_drawer %}{% endblock %}
       <vue-snotify></vue-snotify>

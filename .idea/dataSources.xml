@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/naila</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="cache" uuid="32f6b80c-4339-4646-ac67-401a865752b1">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\codin\Documents\Projects\PyCharm\Naila\Naila.bot\cache.sqlite</jdbc-url>
+    </data-source>
   </component>
 </project>

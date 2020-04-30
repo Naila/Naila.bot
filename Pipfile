@@ -11,6 +11,9 @@ psycopg2 = "*"
 python-dotenv = "*"
 django-allauth = "*"
 djangorestframework = "*"
+pillow = "*"
+requests-cache = "*"
+django-hosts = "*"
 
 [requires]
 python_version = "3.8"
