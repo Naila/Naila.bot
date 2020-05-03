@@ -13,7 +13,7 @@ class GithubWebhooks(APIView):
         sha_name, signature = header_signature.split("=")
         if sha_name != "sha1":
             return Response({"message": "sha1 required"}, status=status.HTTP_400_BAD_REQUEST)
-        mac = hmac.new(str(secret).encode("utf8"), msg=request.data, digestmod="sha1")
+        mac = hmac.new(str.encode(secret), msg=request.data, digestmod="sha1")
         if not str(mac.hexdigest() == str(signature)):
             return Response({"message": "invalid secret"}, status=status.HTTP_403_FORBIDDEN)
 
