@@ -13,6 +13,7 @@ django-allauth = "*"
 djangorestframework = "*"
 pillow = "*"
 requests-cache = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
