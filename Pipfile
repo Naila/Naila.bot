@@ -13,7 +13,6 @@ django-allauth = "*"
 djangorestframework = "*"
 pillow = "*"
 requests-cache = "*"
-django-hosts = "*"
 
 [requires]
 python_version = "3.8"

@@ -111,9 +111,9 @@
     <!-- End Nav Drawer -->
 
     <!-- Content -->
-    <v-content>
-      {% block content %}{% endblock %}
+    <v-content style="position: relative;">
       {% block nav_drawer %}{% endblock %}
+      {% block content %}{% endblock %}
       <vue-snotify></vue-snotify>
     </v-content>
     <!-- End Content -->

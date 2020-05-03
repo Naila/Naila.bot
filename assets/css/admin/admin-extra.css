@@ -1,0 +1,25 @@
+.v-content__wrap {
+    display: flex;
+}
+
+div#content-main {
+    width: 100%;
+    padding-left: 56px;
+}
+
+div.text a {
+    text-decoration: none;
+    color: #2aabd2;
+}
+
+/*div h2, div h3 {*/
+/*    color: black;*/
+/*}*/
+
+#changelist #toolbar, #changelist-filter {
+    background: black !important;
+}
+
+th, td {
+    text-align: center;
+}
