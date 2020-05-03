@@ -101,6 +101,7 @@ SOCIALACCOUNT_PROVIDERS = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "localhost",
         "NAME": os.getenv("PG_NAME"),
         "USER": os.getenv("PG_USER"),
         "PASSWORD": os.getenv("PG_PASS")
