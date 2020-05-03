@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 from dotenv import load_dotenv
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 # Loading env/.env
 load_dotenv()
@@ -107,6 +110,12 @@ DATABASES = {
         "PASSWORD": os.getenv("PG_PASS")
     }
 }
+
+# Sentry
+sentry_sdk.init(
+    os.getenv("SENTRY_URL"),
+    integrations=[DjangoIntegration()]
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
