@@ -33,15 +33,24 @@ class GithubWebhooks(APIView):
             action = request.data["action"]
             tier_data = request.data["sponsorship"]["tier"]
             sponsor_data = request.data["sponsorship"]["sponsor"]
+            old_tier_data = None
             maintainer_data = request.data["sponsorship"]["maintainer"]
             author_name = action
             color = 16711680
+            if action in ["pending_cancellation", "pending_tier_change"]:
+                return Response(status=status.HTTP_204_NO_CONTENT)
             if action == "created":
                 author_name = "New Sponsor!"
                 color = 65370
             elif action == "cancelled":
                 author_name = "Sponsorship Cancelled!"
                 color = 16711680
+            elif action == "tier_changed":
+                author_name = "Sponsorship Edited!"
+                color = 65370
+                old_tier_data = request.data["changes"]["tier"]["from"]
+                if old_tier_data["monthly_price_in_cents"] > tier_data["monthly_price_in_cents"]:
+                    color = 16763904
             webhook_data = {
                 "username": "GitHub Sponsor",
                 "avatar_url": "https://kanin.naila.bot/2020/05/04/tPy1JU.png",
@@ -69,6 +78,16 @@ class GithubWebhooks(APIView):
                     ]
                 }]
             }
+
+            if old_tier_data is not None:
+                webhook_data["embeds"][0]["fields"].append(
+                    {
+                        "name": "Olr Tier:",
+                        "value": f"**Name:** {old_tier_data['name']}\n"
+                                 f"**Price:** {old_tier_data['monthly_price_in_dollars']}"
+                    }
+                )
+
             if request.data["sponsorship"]["privacy_level"] == "private":
                 requests.post(url=os.getenv("GITHUB_SPONSORS_WEBHOOK_PRIVATE"), json=webhook_data)
             else:
