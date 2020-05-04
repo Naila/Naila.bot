@@ -36,7 +36,7 @@ class GithubWebhooks(APIView):
             sponsor_data = request.data["sponsorship"]["sponsor"]
             maintainer_data = request.data["sponsorship"]["maintainer"]
             tier_data = request.data["sponsorship"]["tier"]
-            author_name = "Fix this"
+            author_name = action
             color = 16711680
             if action == "created":
                 author_name = "New Sponsor!"
@@ -58,7 +58,7 @@ class GithubWebhooks(APIView):
                     "fields": [
                         {
                             "name": "Sponsor:",
-                            "value": f"[**{sponsor_data['login']}**]({sponsor_data['html_url']})"
+                            "value": f"**[{sponsor_data['login']}]({sponsor_data['html_url']})**"
                         },
                         {
                             "name": "Tier:",
