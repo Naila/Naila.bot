@@ -84,7 +84,7 @@ class GithubWebhooks(APIView):
                     {
                         "name": "Olr Tier:",
                         "value": f"**Name:** {old_tier_data['name']}\n"
-                                 f"**Price:** {old_tier_data['monthly_price_in_dollars']}"
+                                 f"**Price:** ${old_tier_data['monthly_price_in_dollars']}"
                     }
                 )
 
