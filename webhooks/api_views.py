@@ -1,6 +1,7 @@
 import hmac
 import os
 import hashlib
+import json
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -14,7 +15,7 @@ class GithubWebhooks(APIView):
         if sha_name != "sha1":
             return Response({"message": "sha1 required"}, status=status.HTTP_400_BAD_REQUEST)
         print(type(request.data))
-        mac = hmac.new(str.encode(secret), msg=str.encode(request.data), digestmod=hashlib.sha1)
+        mac = hmac.new(str.encode(secret), msg=json.dumps(request.data).encode("utf8"), digestmod=hashlib.sha1)
         if not str(mac.hexdigest() == str(signature)):
             return Response({"message": "invalid secret"}, status=status.HTTP_403_FORBIDDEN)
 
