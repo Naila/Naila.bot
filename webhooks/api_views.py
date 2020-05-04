@@ -82,7 +82,7 @@ class GithubWebhooks(APIView):
             if old_tier_data is not None:
                 webhook_data["embeds"][0]["fields"].append(
                     {
-                        "name": "Olr Tier:",
+                        "name": "Old Tier:",
                         "value": f"**Name:** {old_tier_data['name']}\n"
                                  f"**Price:** ${old_tier_data['monthly_price_in_dollars']}"
                     }
@@ -92,9 +92,6 @@ class GithubWebhooks(APIView):
                 requests.post(url=os.getenv("GITHUB_SPONSORS_WEBHOOK_PRIVATE"), json=webhook_data)
             else:
                 requests.post(url=os.getenv("GITHUB_SPONSORS_WEBHOOK_PUBLIC"), json=webhook_data)
-            print(request.data["action"])
-            print("-----------------------------------------------------------------------------")
-            print(request.data)
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         print(event)
