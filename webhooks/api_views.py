@@ -31,21 +31,22 @@ class GithubWebhooks(APIView):
 
         if event == "sponsorship":
             action = request.data["action"]
-            public = "private" not in request.data["sponsorship"]["privacy_level"]
-            created = request.data["sponsorship"]["created_at"]
+            tier_data = request.data["sponsorship"]["tier"]
             sponsor_data = request.data["sponsorship"]["sponsor"]
             maintainer_data = request.data["sponsorship"]["maintainer"]
-            tier_data = request.data["sponsorship"]["tier"]
             author_name = action
             color = 16711680
             if action == "created":
                 author_name = "New Sponsor!"
                 color = 65370
+            elif action == "cancelled":
+                author_name = "Sponsorship Cancelled!"
+                color = 16711680
             webhook_data = {
                 "username": "GitHub Sponsor",
                 "avatar_url": "https://kanin.naila.bot/2020/05/04/tPy1JU.png",
                 "embeds": [{
-                    "timestamp": created,
+                    "timestamp": request.data["sponsorship"]["created_at"],
                     "color": color,
                     "thumbnail": {
                         "url": sponsor_data["avatar_url"]
@@ -68,10 +69,13 @@ class GithubWebhooks(APIView):
                     ]
                 }]
             }
-            if public:
-                requests.post(url=os.getenv("GITHUB_SPONSORS_WEBHOOK_PUBLIC"), json=webhook_data)
-            else:
+            if request.data["sponsorship"]["privacy_level"] == "private":
                 requests.post(url=os.getenv("GITHUB_SPONSORS_WEBHOOK_PRIVATE"), json=webhook_data)
+            else:
+                requests.post(url=os.getenv("GITHUB_SPONSORS_WEBHOOK_PUBLIC"), json=webhook_data)
+            print(request.data["action"])
+            print("-----------------------------------------------------------------------------")
+            print(request.data)
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         print(event)
