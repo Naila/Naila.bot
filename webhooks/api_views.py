@@ -20,7 +20,7 @@ class GithubWebhooks(APIView):
 
         mac = hmac.new(
             str.encode(secret),
-            msg=json.dumps(self.request.body).encode("utf8"),
+            msg=self.request.body,
             digestmod=hashlib.sha1
         ).hexdigest()
 
