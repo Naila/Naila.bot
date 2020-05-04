@@ -10,17 +10,20 @@ from rest_framework.views import APIView
 
 
 class GithubWebhooks(APIView):
-    def post(self, request):
+    def validate_request(self) -> bool:
         secret = os.getenv("GITHUB_SECRET")
-        header_signature = request.headers.get("X-Hub-Signature")
-        sha_name, signature = header_signature.split("=")
+        header_signature = self.request.headers.get("X-Hub-Signature")
+        signature = header_signature.split("=")[1]
 
-        if sha_name != "sha1":
-            return Response({"message": "sha1 required"}, status=status.HTTP_400_BAD_REQUEST)
-
-        mac = hmac.new(str.encode(secret), msg=json.dumps(request.data).encode("utf8"), digestmod=hashlib.sha1)
+        mac = hmac.new(str.encode(secret), msg=json.dumps(self.request.data).encode("utf8"), digestmod=hashlib.sha1)
         if not str(mac.hexdigest() == str(signature)):
-            return Response({"message": "invalid secret"}, status=status.HTTP_403_FORBIDDEN)
+            return False
+        return True
+
+    def post(self, request):
+        valid = self.validate_request()
+        if not valid:
+            return Response({"message": "Could not validate request!"}, status=status.HTTP_403_FORBIDDEN)
 
         event = request.headers.get("X-GitHub-Event", "ping")
         if event == "ping":
@@ -59,7 +62,8 @@ class GithubWebhooks(APIView):
                         },
                         {
                             "name": "Tier:",
-                            "value": f"**Name:** {tier_data['name']}\n**Price:** ${tier_data['monthly_price_in_dollars']}"
+                            "value": f"**Name:** {tier_data['name']}\n"
+                                     f"**Price:** ${tier_data['monthly_price_in_dollars']}"
                         }
                     ]
                 }]
