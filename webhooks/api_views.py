@@ -38,7 +38,7 @@ class GithubWebhooks(APIView):
                 "timestamp": created,
                 "color": 65370,
                 "thumbnail": {
-                    "url": sponsor_data["html_url"]
+                    "url": sponsor_data["avatar_url"]
                 },
                 "author": {
                     "name": "New sponsor!",
