@@ -18,15 +18,9 @@ class GithubWebhooks(APIView):
         secret = os.getenv("GITHUB_SECRET")
         signature = header_signature.split("=")[1]
 
-        mac = hmac.new(
-            str.encode(secret),
-            msg=self.request.body,
-            digestmod=hashlib.sha1
-        ).hexdigest()
+        mac = hmac.new(str.encode(secret), msg=self.request.body, digestmod=hashlib.sha1).hexdigest()
 
-        print(mac)
-        print(signature)
-        if not hmac.compare_digest(str(mac), str(signature)):
+        if not hmac.compare_digest(mac, signature):
             return False
         return True
 
