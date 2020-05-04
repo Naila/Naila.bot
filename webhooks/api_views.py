@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 class GithubWebhooks(APIView):
     def validate_request(self) -> bool:
         header_signature = self.request.headers.get("X-Hub-Signature", None)
-        if header_signature is None:
+        if header_signature is None or not header_signature.startswith("sha1="):
             return False
 
         secret = os.getenv("GITHUB_SECRET")
@@ -23,7 +23,7 @@ class GithubWebhooks(APIView):
             return False
         return True
 
-    def post(self, request):
+    def post(self, request) -> Response:
         valid = self.validate_request()
         if not valid:
             return Response({"message": "Could not validate request!"}, status=status.HTTP_403_FORBIDDEN)
