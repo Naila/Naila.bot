@@ -75,3 +75,9 @@ class GithubWebhooks(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         print(event)
+
+
+class PatreonWebhooks(APIView):
+    def post(self, request):
+        print(request.data)
+        print(request.headers)
