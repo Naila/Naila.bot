@@ -19,7 +19,7 @@ class GithubWebhooks(APIView):
         signature = header_signature.split("=")[1]
 
         mac = hmac.new(str.encode(secret), msg=json.dumps(self.request.data).encode("utf8"), digestmod=hashlib.sha1)
-        if not hmac.compare_digest(mac.hexdigest(), signature):
+        if not hmac.compare_digest(mac.hexdigest(), hmac.new(signature, digestmod=hashlib.sha1)):
             return False
         return True
 
