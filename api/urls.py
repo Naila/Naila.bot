@@ -10,6 +10,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path("ship", Ship.as_view(), name="ship"),
     path("webhook/github", GithubWebhooks.as_view(), name="GitHub Webhooks"),
-    path("webhook/patreon", PatreonWebhooks.as_view(), name="Patreon Webhooks"),
     path("api-auth/", include("rest_framework.urls"))
 ]
