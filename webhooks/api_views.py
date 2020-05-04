@@ -11,11 +11,11 @@ from rest_framework.views import APIView
 
 class GithubWebhooks(APIView):
     def validate_request(self) -> bool:
-        secret = os.getenv("GITHUB_SECRET")
         header_signature = self.request.headers.get("X-Hub-Signature", None)
         if header_signature is None:
             return False
 
+        secret = os.getenv("GITHUB_SECRET")
         signature = header_signature.split("=")[1]
 
         mac = hmac.new(str.encode(secret), msg=json.dumps(self.request.data).encode("utf8"), digestmod=hashlib.sha1)
