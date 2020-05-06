@@ -22,7 +22,7 @@ class Ship(APIView):
     This endpoint returns an image for two given user avatars on either side of a random heart
     """
 
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_avatars(self):
         avatar1 = self.request.GET.get("avatar1", None)
