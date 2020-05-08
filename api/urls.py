@@ -11,6 +11,6 @@ urlpatterns = [
     path("key/<str:action>/", CreateDeleteRefreshApiKey.as_view()),
     path("ship", Ship.as_view(), name="ship"),
     path("webhook/github", GithubWebhooks.as_view(), name="GitHub Webhooks"),
-    path("webhook/sentry", SentryWebhooks.as_view(), name="GitHub Webhooks"),
+    # path("webhook/sentry", SentryWebhooks.as_view(), name="Sentry Webhooks"),
     path("api-auth/", include("rest_framework.urls"))
 ]
