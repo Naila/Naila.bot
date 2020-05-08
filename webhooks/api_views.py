@@ -17,9 +17,9 @@ class GithubWebhooks(APIView):
         secret = os.getenv("GITHUB_SECRET")
         signature = header_signature.split("=")[1]
 
-        mac = hmac.new(str.encode(secret), msg=self.request.body, digestmod=hashlib.sha1).hexdigest()
+        expected = hmac.new(str.encode(secret), msg=self.request.body, digestmod=hashlib.sha1).hexdigest()
 
-        if not hmac.compare_digest(mac, signature):
+        if not hmac.compare_digest(expected, signature):
             return False
         return True
 
@@ -101,10 +101,28 @@ class GithubWebhooks(APIView):
 
 
 class SentryWebhooks(APIView):
-    def post(self, request):
-        print("----------------------------------------HEADERS-------------------------------------")
-        print(request.headers)
-        print("------------------------------------------BODY--------------------------------------")
-        print(request.body)
-        print("------------------------------------------DATA--------------------------------------")
-        print(request.data)
+    def validate_request(self) -> bool:
+        signature = self.request.headers.get("Sentry-Hook-Signature", None)
+        if signature is None:
+            return False
+
+        secret = os.getenv("SENTRY_SECRET")
+
+        expected = hmac.new(str.encode(secret), msg=self.request.body, digestmod=hashlib.sha256).hexdigest()
+
+        if not hmac.compare_digest(expected, signature):
+            return False
+        return True
+
+    def post(self, request) -> Response:
+        valid = self.validate_request()
+        if not valid:
+            return Response({"message": "Could not validate request!"}, status=status.HTTP_403_FORBIDDEN)
+
+        # print("----------------------------------------HEADERS-------------------------------------")
+        # print(request.headers)
+        # print("------------------------------------------BODY--------------------------------------")
+        # print(request.body)
+        # print("------------------------------------------DATA--------------------------------------")
+        # print(request.data)
+        return Response("Received")
