@@ -117,8 +117,10 @@ class SentryWebhooks(APIView):
     def post(self, request) -> Response:
         valid = self.validate_request()
         if not valid:
+            print("Invalid")
             return Response({"message": "Could not validate request!"}, status=status.HTTP_403_FORBIDDEN)
 
+        print("Valid")
         # print("----------------------------------------HEADERS-------------------------------------")
         # print(request.headers)
         # print("------------------------------------------BODY--------------------------------------")
