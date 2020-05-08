@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<v-container>
+  <v-card class="mt-6 mx-auto" max-width="600">
+    <v-card-title class="headline">There was an error while trying to log you in:</v-card-title>
+    <v-card-body>
+      <p class="body-1">Authentication Error:</p>
+      {% for key, value in auth_error.items %}
+        {% if key == "exception" %}
+          <p class="body-1">Exception:</p>
+          <p class="body-2">{{ value }}</p>
+        {% else %}
+          <p class="body-2">{{ key.capitalize }}: {{ value }}</p>
+        {% endif %}
+      {% endfor %}
+      <p class="body-1">Code: {{ auth_error.code }}</p>
+    </v-card-body>
+  </v-card>
+</v-container>
+{% endblock %}

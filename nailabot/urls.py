@@ -21,9 +21,9 @@ from django.urls import include, path
 from .views import HomeView
 
 urlpatterns = [
-  path("", HomeView.as_view(), name="home"),
-  path("accounts/", include("allauth.urls")),
-  path("admin/", admin.site.urls),
-  path("api/", include("api.urls")),
-  path("cdn/", include("cdn.urls"))
+    path("", HomeView.as_view(), name="home"),
+    path("accounts/", include("allauth.urls")),
+    path("admin/", admin.site.urls),
+    path("api/", include("api.urls")),
+    path("cdn/", include("cdn.urls"))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

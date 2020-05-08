@@ -98,3 +98,13 @@ class GithubWebhooks(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         print(event)
+
+
+class SentryWebhooks(APIView):
+    def post(self, request):
+        print("----------------------------------------HEADERS-------------------------------------")
+        print(request.headers)
+        print("------------------------------------------BODY--------------------------------------")
+        print(request.body)
+        print("------------------------------------------DATA--------------------------------------")
+        print(request.data)

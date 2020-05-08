@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.patreon",
     "rest_framework",
+    "rest_framework.authtoken",
     "cdn",
 ]
 
@@ -113,8 +114,10 @@ DATABASES = {
 
 # Sentry
 sentry_sdk.init(
-    os.getenv("SENTRY_URL"),
-    integrations=[DjangoIntegration()]
+    dsn=os.getenv("SENTRY_URL"),
+    integrations=[DjangoIntegration()],
+    send_default_pii=True,
+    environment="Development" if DEBUG else "Production"
 )
 
 # Password validation

@@ -7,6 +7,7 @@ import requests_cache
 from PIL import Image
 from django.http import FileResponse
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -61,3 +62,25 @@ class Ship(APIView):
         temp_image.seek(0)
         response = FileResponse(temp_image, filename="ship.png")
         return response
+
+
+class CreateDeleteRefreshApiKey(APIView):
+    """
+    Creates, deletes, or refreshes an API key
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, action):
+        if action == "create":
+            token = Token.objects.get_or_create(user=request.user)
+            return Response({"token": token[0].key}, status=status.HTTP_201_CREATED)
+        if action == "delete":
+            token = Token.objects.get_or_create(user=request.user)[0]
+            token.delete()
+            return Response(status=status.HTTP_200_OK)
+        if action == "refresh":
+            old_token = Token.objects.get_or_create(user=request.user)[0]
+            old_token.delete()
+            token = Token.objects.get_or_create(user=request.user)
+            return Response({"token": token[0].key}, status=status.HTTP_200_OK)
