@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/vue-snotify@3.2.1/styles/material.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="{% static 'css/base.css' %}" rel="stylesheet" >
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
   <script src="https://kit.fontawesome.com/de3ef6798f.js" crossorigin="anonymous"></script>
   {% block head %}{% endblock %}
   {% block extrastyle %}{% endblock %}
@@ -25,13 +25,13 @@
           class="d-md-none"
       ></v-app-bar-nav-icon>
       <v-toolbar-title>
-          <v-img
-              style="cursor: context-menu"
-              src="{% static "images/naila/nailatext 1.png" %}"
-              max-width="140"
-              max-height="50"
-          >
-          </v-img>
+        <v-img
+            style="cursor: context-menu"
+            src="{% static "images/naila/nailatext 1.png" %}"
+            max-width="140"
+            max-height="50"
+        >
+        </v-img>
       </v-toolbar-title>
       <v-toolbar-items class="d-none d-md-flex">
         <v-btn
@@ -42,6 +42,24 @@
         >
           [[ link.name ]]
         </v-btn>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on">
+              Listing
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>Bot Listing</v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-title>Guild Listing</v-list-item-title>
+            </v-list-item>
+            <v-list-item href="/banlist">
+              <v-list-item-title>Ban Listing</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-toolbar-items>
 
 
@@ -106,6 +124,26 @@
             <v-list-item-title>[[ link.name ]]</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-group class="nav-members">
+          <template v-slot:activator>
+            <v-list-item-title>Listing</v-list-item-title>
+          </template>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Bot Listing</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Guild Listing</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Ban Listing</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
       </v-list>
     </v-navigation-drawer>
     <!-- End Nav Drawer -->
@@ -131,24 +169,24 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 <script>
-  const app = new Vue({
-    delimiters: ["[[", "]]"],
-    el: "#app",
-    vuetify: new Vuetify({
-      theme: {
-        dark: true,
-      },
-    }),
-    data: {
-      sidebar: false,
-      navItems: [
-        {name: "Home", url: "{% url 'home' %}"},
-      ],
-      {% block data %}{% endblock %}
-    },
-    methods: {% block methods %}{}{% endblock %},
-    watch: {% block watch %}{}{% endblock %}
-  });
+    const app = new Vue({
+        delimiters: ["[[", "]]"],
+        el: "#app",
+        vuetify: new Vuetify({
+            theme: {
+                dark: true,
+            },
+        }),
+        data: {
+            sidebar: false,
+            navItems: [
+                {name: "Home", url: "{% url 'home' %}"},
+            ],
+            {% block data %}{% endblock %}
+        },
+        methods: {% block methods %}{}{% endblock %},
+        watch: {% block watch %}{}{% endblock %}
+    });
 </script>
 </body>
 </html>

@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost", "naila.bot"]
 # Application definition
 
 INSTALLED_APPS = [
+    # Django default
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,13 +46,21 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django.contrib.humanize",
+
+    # AllAuth
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.discord",
     "allauth.socialaccount.providers.patreon",
+
+    # DRF
     "rest_framework",
     "rest_framework.authtoken",
+
+    # Apps
+    "api",
+    "banlist",
     "cdn",
 ]
 
