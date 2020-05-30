@@ -28,3 +28,9 @@ urlpatterns = [
     path("cdn/", include("cdn.urls")),
     path("banlist/", include("banlist.urls"))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append(
+        path('__debug__/', include(debug_toolbar.urls)),
+    )

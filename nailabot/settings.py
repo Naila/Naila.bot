@@ -33,6 +33,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") != "False"
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "naila.bot"]
+INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
 
@@ -58,6 +59,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
 
+    # Debug Toolbar
+    "debug_toolbar",
+
     # Apps
     "api",
     "banlist",
@@ -65,6 +69,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

@@ -23,14 +23,11 @@
           </v-btn>
         </v-card-title>
         <hr style="margin-bottom: 10px;">
-        <v-card-text>{{ bans }}</v-card-text>
         {% if not bans %}
           <h1 class="display-3 mb-5 text-center">No bans!</h1>
         {% else %}
           {% for id, ban_list in bans.items %}
-            <v-card-text>{{ id }}</v-card-text>
-            <v-card-text>{{ ban_list }}</v-card-text>
-            <v-col cols="12" sm="6" md="4" lg="3">
+            <v-col cols="auto" sm="6" md="4" lg="3">
               <v-card color="secondary">
                 <h3 class="text-center">
                   {{ id }}
@@ -73,25 +70,25 @@
             </v-col>
           {% endfor %}
         {% endif %}
-        <v-card-actions>
-          <v-pagination
-              v-model="page"
-              :length="pages"
-              total-visible="7"
-              color="#AFFAFF"
-          ></v-pagination>
-        </v-card-actions>
+        {#        <v-card-actions>#}
+        {#          <v-pagination#}
+        {#              v-model="page"#}
+        {#              :length="pages"#}
+        {#              total-visible="7"#}
+        {#              color="#AFFAFF"#}
+        {#          ></v-pagination>#}
+        {#        </v-card-actions>#}
       </v-card>
     </v-col>
   </v-container>
 {% endblock %}
 
 {% block data %}
-  search: '',
-  pages: {{ paginator.num_pages }},
-  page: {{ page_obj.number }}
+  search: ''
+  {#  pages: {{ paginator.num_pages }},#}
+  {#  page: {{ page_obj.number }}#}
 {% endblock %}
 
-{% block watch %}
-  {page: function(val) {window.location = `/banlist/?page=${val}`}}
-{% endblock %}
+{#{% block watch %}#}
+{#  {page: function(val) {window.location = `/banlist/?page=${val}`}}#}
+{#{% endblock %}#}

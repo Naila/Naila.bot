@@ -16,6 +16,7 @@ requests-cache = "*"
 gunicorn = "*"
 gevent = "*"
 sentry-sdk = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.8"
