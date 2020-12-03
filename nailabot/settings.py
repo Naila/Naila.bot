@@ -17,7 +17,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
-# Loading env/.env
+# Loading .env
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
