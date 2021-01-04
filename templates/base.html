@@ -149,11 +149,11 @@
     <!-- End Nav Drawer -->
 
     <!-- Content -->
-    <v-content style="position: relative;">
+    <v-main style="position: relative;">
       {% block nav_drawer %}{% endblock %}
       {% block content %}{% endblock %}
       <vue-snotify></vue-snotify>
-    </v-content>
+    </v-main>
     <!-- End Content -->
 
     <!-- Footer -->
@@ -167,7 +167,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue-snotify@3/vue-snotify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1/dist/vue-resource.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-
+{% block scripts %}{% endblock %}
 <script>
     const app = new Vue({
         delimiters: ["[[", "]]"],
@@ -185,7 +185,8 @@
             {% block data %}{% endblock %}
         },
         methods: {% block methods %}{}{% endblock %},
-        watch: {% block watch %}{}{% endblock %}
+        watch: {% block watch %}{}{% endblock %},
+        mounted() {% block mounted %}{}{% endblock %}
     });
 </script>
 </body>

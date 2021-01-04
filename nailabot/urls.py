@@ -26,7 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("cdn/", include("cdn.urls")),
-    path("banlist/", include("banlist.urls"))
+    path("minecraft/", include("minecraft.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

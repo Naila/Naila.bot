@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.discord",
-    "allauth.socialaccount.providers.patreon",
+    "allauth.socialaccount.providers.github",
 
     # DRF
     "rest_framework",
@@ -64,8 +64,8 @@ INSTALLED_APPS = [
 
     # Apps
     "api",
-    "banlist",
     "cdn",
+    "minecraft",
 ]
 
 MIDDLEWARE = [
@@ -107,9 +107,8 @@ WSGI_APPLICATION = "nailabot.wsgi.application"
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
 SOCIALACCOUNT_PROVIDERS = {
-    "patreon": {
-        "VERSION": "v2",
-        "SCOPE": ["identity", "identity[email]", "campaigns", "campaigns.members"],
+    "github": {
+        "SCOPE": ["read:user", "read:org", "public_repo"],
     }
 }
 
