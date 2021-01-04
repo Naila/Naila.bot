@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+  <link href="{% static 'css/minecraft/testing.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}• Minecraft{% endblock %}
+
+{% block head %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"
+          integrity="sha256-NGC9JEuTWN4GhTj091wctgjzftr+8WNDmw0H8J5YPYE=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/InventivetalentDev/MineRender@1.4.6/dist/skin.min.js"></script>
+{% endblock %}
+
+{% block content %}
+  <div>
+    <v-container>
+      <v-col cols="12" sm="10" md="8" offset-sm="1" offset-md="2">
+        <v-card>
+          <h1 class="display-3 mb-5 text-center">Settings</h1>
+          <v-col cols="12" md="6">
+            <label for="player_name">Name: </label>
+            <input id="player_name" type="text">
+            <br>
+            <v-radio-group v-model="radioGroup">
+              {% for type in getCapes() %}
+            </v-radio-group>
+            <label for="cape">Cape: </label>
+            <input id="cape" type="text" style="background-color: gray;">
+          </v-col>
+        </v-card>
+      </v-col>
+    </v-container>
+    <div id="player_model"></div>
+  </div>
+{% endblock %}
+
+{% block mounted %}
+  {
+  {% include 'js/skinRender.js' %}
+  }
+{% endblock %}
