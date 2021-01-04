@@ -130,6 +130,7 @@ sentry_sdk.init(
     dsn=os.getenv("SENTRY_URL"),
     integrations=[DjangoIntegration()],
     send_default_pii=True,
+    traces_sample_rate=0.2,
     environment="Development" if DEBUG else "Production"
 )
 
